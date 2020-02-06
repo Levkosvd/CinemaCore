@@ -14,5 +14,6 @@
         <mapping class="cinema.model.Movie" />
         <mapping class="cinema.model.CinemaHall" />
         <mapping class="cinema.model.MovieSession" />
+        <mapping class="cinema.model.User" />
     </session-factory>
 </hibernate-configuration>

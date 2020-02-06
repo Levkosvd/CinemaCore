@@ -37,18 +37,20 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<MovieSession> movieSessionCriteriaQuery =
+            CriteriaQuery<MovieSession> criteriaQuery  =
                     criteriaBuilder.createQuery(MovieSession.class);
             Root<MovieSession> movieSessionRoot =
-                    movieSessionCriteriaQuery.from(MovieSession.class);
+                    criteriaQuery .from(MovieSession.class);
             Predicate predicateDate = criteriaBuilder
                     .between(movieSessionRoot.get("showTime"), date.atStartOfDay(),
                     date.plusDays(1).atStartOfDay());
             Predicate predicateId = criteriaBuilder.equal(movieSessionRoot.get("movie"), movieId);
-            movieSessionCriteriaQuery
+            criteriaQuery
                     .select(movieSessionRoot)
                     .where(criteriaBuilder.and(predicateDate, predicateId));
-            return session.createQuery(movieSessionCriteriaQuery).getResultList();
+            return session.createQuery(criteriaQuery ).getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("Can't get list of MovieSession entities", e);
         }
     }
 }

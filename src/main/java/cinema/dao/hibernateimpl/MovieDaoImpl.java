@@ -39,7 +39,7 @@ public class MovieDaoImpl implements MovieDao {
             criteriaQuery.from(Movie.class);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't insert Movie entity", e);
+            throw new RuntimeException("Can't get list of Movie entities", e);
         }
     }
 }
