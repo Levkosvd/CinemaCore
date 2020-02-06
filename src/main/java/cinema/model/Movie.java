@@ -43,6 +43,7 @@ public class Movie {
     public String toString() {
         return "Movie{" + "id=" + id
                 + ", title='" + title + '\''
-                + ", description='" + description + '\'' + '}';
+                + ", description='" + description + '\''
+                + '}';
     }
 }
