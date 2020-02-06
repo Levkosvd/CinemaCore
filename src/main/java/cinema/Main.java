@@ -45,7 +45,6 @@ public class Main {
         cinemaHall.setDescription("CinemaCity");
         cinemaHall = cinemaHallService.add(cinemaHall);
 
-        //right session
         MovieSession movieSession1 = new MovieSession();
         movieSession1.setMovie(movie);
         movieSession1.setCinemaHall(cinemaHall);
@@ -53,7 +52,6 @@ public class Main {
                 LocalTime.of(12,30)));
         movieSessionService.add(movieSession1);
 
-        //another right session
         MovieSession movieSession2 = new MovieSession();
         movieSession2.setMovie(movie);
         movieSession2.setCinemaHall(cinemaHall);
@@ -61,7 +59,6 @@ public class Main {
                 LocalTime.of(15,30)));
         movieSessionService.add(movieSession2);
 
-        //session with another date
         MovieSession movieSession3 = new MovieSession();
         movieSession3.setMovie(movie);
         movieSession3.setCinemaHall(cinemaHall);
@@ -69,7 +66,6 @@ public class Main {
                 LocalTime.of(19,30)));
         movieSessionService.add(movieSession3);
 
-        //session with another movie
         MovieSession movieSession4 = new MovieSession();
         movieSession4.setMovie(movie2);
         movieSession4.setCinemaHall(cinemaHall);
@@ -82,34 +78,16 @@ public class Main {
         authService.register(email, password);
 
         System.out.println(userService.findByEmail("login@gmail.com"));
-        /* Output:
-            User{id=1, email='login@gmail.com',
-            password='ab171cf3a5f531b4926b86b94eb9e9976f2a277bbb7597bac671157edf74bc6b',
-            salt=[-91, 116, -98, 104, -96, 51, -18, -16, 73, 94, 64, -44, -44, 116, 34, 24]}
-         */
+
         System.out.println(authService.login(email, password));
-        /* Output:
-            User{id=1, email='login@gmail.com',
-            password='ab171cf3a5f531b4926b86b94eb9e9976f2a277bbb7597bac671157edf74bc6b',
-            salt=[-91, 116, -98, 104, -96, 51, -18, -16, 73, 94, 64, -44, -44, 116, 34, 24]}
-         */
+
 
         System.out.println(authService.login(email, "2222"));
-        /* Output:
-            Exception in thread "main" cinema.execeptions.AuthenticationException: Incorrect login or password!
-         */
+
 
         movieSessionService.findAvailableSessions(movie.getId(),
                 LocalDate.now()).forEach(System.out::println);
-        /* Output :
-        MovieSession{id=1, movie=Movie{id=1, title='Fast and Furious', description='null'},
-        cinemaHall=CinemaHall{id=1, description='CinemaCity', capacity=250},
-        showTime=2020-02-05T12:30}
 
-        MovieSession{id=2, movie=Movie{id=1, title='Fast and Furious', description='null'},
-        cinemaHall=CinemaHall{id=1, description='CinemaCity', capacity=250},
-        showTime=2020-02-05T15:30}
-         */
 
 
     }
