@@ -14,12 +14,11 @@ import cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import javax.security.sasl.AuthenticationException;
 
 public class Main {
     private static Injector injector = Injector.getInstance("cinema");
 
-    public static void main(String[] args) throws AuthenticationException, cinema.execeptions.AuthenticationException {
+    public static void main(String[] args) {
         MovieSessionService movieSessionService =
                 (MovieSessionService) injector.getInstance(MovieSessionService.class);
         MovieService movieService =
@@ -68,9 +67,5 @@ public class Main {
         User user = userService.findByEmail("login@gmail.com");
         shoppingCartService.addSession(movieSession1, user);
         shoppingCartService.addSession(movieSession2, user);
-
-
-
-
     }
 }

@@ -1,6 +1,5 @@
 package cinema.service.impl;
 
-import cinema.dao.ShoppingCartDao;
 import cinema.dao.UserDao;
 import cinema.execeptions.AuthenticationException;
 import cinema.lib.Inject;
@@ -20,7 +19,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User login(String email, String password) throws AuthenticationException {
         User userFromDb = userDao.findByEmail(email);
-        if(userFromDb == null || !userFromDb.getPassword()
+        if (userFromDb == null || !userFromDb.getPassword()
                 .equals(HashUtil.hashPassword(password,userFromDb.getSalt()))) {
             throw new AuthenticationException("Incorrect login or password!");
         }

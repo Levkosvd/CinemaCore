@@ -1,6 +1,5 @@
 package cinema.service.impl;
 
-import cinema.dao.MovieSessionDao;
 import cinema.dao.UserDao;
 import cinema.lib.Inject;
 import cinema.lib.Service;

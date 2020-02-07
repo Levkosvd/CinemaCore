@@ -3,13 +3,10 @@ package cinema.dao.hibernateimpl;
 import cinema.dao.ShoppingCartDao;
 import cinema.lib.Dao;
 import cinema.model.ShoppingCart;
-import cinema.model.Ticket;
 import cinema.model.User;
 import cinema.util.HibernateUtil;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -37,7 +34,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart getByUser(User user) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<ShoppingCart> criteriaQuery =
                     criteriaBuilder.createQuery(ShoppingCart.class);
