@@ -48,4 +48,11 @@ public class ShoppingCart {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" + "id=" + id
+                + ", tickets=" + tickets
+                + ", user=" + user + '}';
+    }
 }

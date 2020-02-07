@@ -67,5 +67,6 @@ public class Main {
         User user = userService.findByEmail("login@gmail.com");
         shoppingCartService.addSession(movieSession1, user);
         shoppingCartService.addSession(movieSession2, user);
+        System.out.println(shoppingCartService.getByUser(user));
     }
 }
