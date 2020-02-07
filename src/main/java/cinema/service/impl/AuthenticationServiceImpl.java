@@ -1,17 +1,21 @@
 package cinema.service.impl;
 
+import cinema.dao.ShoppingCartDao;
 import cinema.dao.UserDao;
 import cinema.execeptions.AuthenticationException;
 import cinema.lib.Inject;
 import cinema.lib.Service;
 import cinema.model.User;
 import cinema.service.AuthenticationService;
+import cinema.service.ShoppingCartService;
 import cinema.util.HashUtil;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     UserDao userDao;
+    @Inject
+    ShoppingCartService shoppingCartService;
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
@@ -29,6 +33,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         newUser.setEmail(email);
         newUser.setSalt(HashUtil.getRandomSalt());
         newUser.setPassword(HashUtil.hashPassword(password, newUser.getSalt()));
-        return userDao.add(newUser);
+        User userfromDb = userDao.add(newUser);
+        shoppingCartService.registerNewShoppingCart(newUser);
+        return userfromDb;
     }
 }
