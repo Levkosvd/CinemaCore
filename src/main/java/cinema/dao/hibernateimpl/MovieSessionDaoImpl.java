@@ -40,7 +40,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             CriteriaQuery<MovieSession> criteriaQuery  =
                     criteriaBuilder.createQuery(MovieSession.class);
             Root<MovieSession> movieSessionRoot =
-                    criteriaQuery .from(MovieSession.class);
+                    criteriaQuery.from(MovieSession.class);
             Predicate predicateDate = criteriaBuilder
                     .between(movieSessionRoot.get("showTime"), date.atStartOfDay(),
                     date.plusDays(1).atStartOfDay());
@@ -48,7 +48,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             criteriaQuery
                     .select(movieSessionRoot)
                     .where(criteriaBuilder.and(predicateDate, predicateId));
-            return session.createQuery(criteriaQuery ).getResultList();
+            return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can't get list of MovieSession entities", e);
         }

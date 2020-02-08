@@ -1,8 +1,6 @@
 package cinema.dao;
 
-import cinema.lib.Dao;
 import cinema.model.User;
-
 
 public interface UserDao {
 

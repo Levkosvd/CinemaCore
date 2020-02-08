@@ -2,12 +2,10 @@ package cinema.dao.hibernateimpl;
 
 import cinema.dao.UserDao;
 import cinema.lib.Dao;
-import cinema.model.MovieSession;
 import cinema.model.User;
 import cinema.util.HibernateUtil;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -42,7 +40,8 @@ public class UserDaoImpl implements UserDao {
                     userCriteriaQuery.from(User.class);
             userCriteriaQuery
                     .select(userRoot)
-                    .where(criteriaBuilder.and(criteriaBuilder.equal(userRoot.get("email"), email)));
+                    .where(criteriaBuilder.and(criteriaBuilder
+                            .equal(userRoot.get("email"), email)));
             return session.createQuery(userCriteriaQuery).uniqueResult();
         } catch (Exception e) {
             throw new RuntimeException("Can't find User by email -" + email, e);

@@ -9,16 +9,16 @@ import cinema.service.AuthenticationService;
 import cinema.service.CinemaHallService;
 import cinema.service.MovieService;
 import cinema.service.MovieSessionService;
+import cinema.service.ShoppingCartService;
 import cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import javax.security.sasl.AuthenticationException;
 
 public class Main {
     private static Injector injector = Injector.getInstance("cinema");
 
-    public static void main(String[] args) throws AuthenticationException, cinema.execeptions.AuthenticationException {
+    public static void main(String[] args) {
         MovieSessionService movieSessionService =
                 (MovieSessionService) injector.getInstance(MovieSessionService.class);
         MovieService movieService =
@@ -29,6 +29,8 @@ public class Main {
                 (UserService) injector.getInstance(UserService.class);
         AuthenticationService authService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        ShoppingCartService shoppingCartService =
+                (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
 
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
@@ -53,42 +55,18 @@ public class Main {
         movieSessionService.add(movieSession1);
 
         MovieSession movieSession2 = new MovieSession();
-        movieSession2.setMovie(movie);
+        movieSession2.setMovie(movie2);
         movieSession2.setCinemaHall(cinemaHall);
         movieSession2.setShowTime(LocalDateTime.of(LocalDate.now(),
                 LocalTime.of(15,30)));
         movieSessionService.add(movieSession2);
 
-        MovieSession movieSession3 = new MovieSession();
-        movieSession3.setMovie(movie);
-        movieSession3.setCinemaHall(cinemaHall);
-        movieSession3.setShowTime(LocalDateTime.of(LocalDate.now().minusDays(1),
-                LocalTime.of(19,30)));
-        movieSessionService.add(movieSession3);
-
-        MovieSession movieSession4 = new MovieSession();
-        movieSession4.setMovie(movie2);
-        movieSession4.setCinemaHall(cinemaHall);
-        movieSession4.setShowTime(LocalDateTime.of(LocalDate.now(),
-                LocalTime.of(17,30)));
-        movieSessionService.add(movieSession4);
-
         String email = "login@gmail.com";
         String password = "1111";
         authService.register(email, password);
-
-        System.out.println(userService.findByEmail("login@gmail.com"));
-
-        System.out.println(authService.login(email, password));
-
-
-        System.out.println(authService.login(email, "2222"));
-
-
-        movieSessionService.findAvailableSessions(movie.getId(),
-                LocalDate.now()).forEach(System.out::println);
-
-
-
+        User user = userService.findByEmail("login@gmail.com");
+        shoppingCartService.addSession(movieSession1, user);
+        shoppingCartService.addSession(movieSession2, user);
+        System.out.println(shoppingCartService.getByUser(user));
     }
 }

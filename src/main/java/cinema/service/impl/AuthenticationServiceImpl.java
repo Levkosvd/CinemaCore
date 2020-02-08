@@ -6,17 +6,20 @@ import cinema.lib.Inject;
 import cinema.lib.Service;
 import cinema.model.User;
 import cinema.service.AuthenticationService;
+import cinema.service.ShoppingCartService;
 import cinema.util.HashUtil;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     UserDao userDao;
+    @Inject
+    ShoppingCartService shoppingCartService;
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
         User userFromDb = userDao.findByEmail(email);
-        if(userFromDb == null || !userFromDb.getPassword()
+        if (userFromDb == null || !userFromDb.getPassword()
                 .equals(HashUtil.hashPassword(password,userFromDb.getSalt()))) {
             throw new AuthenticationException("Incorrect login or password!");
         }
@@ -29,6 +32,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         newUser.setEmail(email);
         newUser.setSalt(HashUtil.getRandomSalt());
         newUser.setPassword(HashUtil.hashPassword(password, newUser.getSalt()));
-        return userDao.add(newUser);
+        User userfromDb = userDao.add(newUser);
+        shoppingCartService.registerNewShoppingCart(newUser);
+        return userfromDb;
     }
 }
