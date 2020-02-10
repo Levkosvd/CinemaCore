@@ -9,6 +9,7 @@ import cinema.service.AuthenticationService;
 import cinema.service.CinemaHallService;
 import cinema.service.MovieService;
 import cinema.service.MovieSessionService;
+import cinema.service.OrderService;
 import cinema.service.ShoppingCartService;
 import cinema.service.UserService;
 import java.time.LocalDate;
@@ -31,6 +32,8 @@ public class Main {
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+        OrderService orderService =
+                (OrderService) injector.getInstance(OrderService.class);
 
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
@@ -68,5 +71,9 @@ public class Main {
         shoppingCartService.addSession(movieSession1, user);
         shoppingCartService.addSession(movieSession2, user);
         System.out.println(shoppingCartService.getByUser(user));
+
+        orderService.completeOrder(user);
+        System.out.println(orderService.getOrderHistory(user));
+
     }
 }
