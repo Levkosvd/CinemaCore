@@ -14,9 +14,9 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Inject
-    private static OrderDao orderDao;
+    OrderDao orderDao;
     @Inject
-    private static ShoppingCartService shoppingCartService;
+    ShoppingCartService shoppingCartService;
 
     @Override
     public Order completeOrder(User user) {
