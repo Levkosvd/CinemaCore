@@ -1,16 +1,18 @@
 package cinema.service.impl;
 
 import cinema.dao.MovieDao;
-import cinema.lib.Inject;
-import cinema.lib.Service;
 import cinema.model.Movie;
 import cinema.service.MovieService;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MovieServiceImpl implements MovieService {
-    @Inject
-    private static MovieDao movieDao;
+    final MovieDao movieDao;
+
+    public MovieServiceImpl(MovieDao movieDao) {
+        this.movieDao = movieDao;
+    }
 
     @Override
     public Movie add(Movie movie) {

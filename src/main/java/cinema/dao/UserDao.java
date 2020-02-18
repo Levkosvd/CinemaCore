@@ -2,9 +2,7 @@ package cinema.dao;
 
 import cinema.model.User;
 
-public interface UserDao {
-
-    User add(User user);
+public interface UserDao extends GenericDao<User> {
 
     User findByEmail(String email);
 }

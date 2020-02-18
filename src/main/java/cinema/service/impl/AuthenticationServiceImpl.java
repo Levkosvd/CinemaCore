@@ -2,19 +2,21 @@ package cinema.service.impl;
 
 import cinema.dao.UserDao;
 import cinema.execeptions.AuthenticationException;
-import cinema.lib.Inject;
-import cinema.lib.Service;
 import cinema.model.User;
 import cinema.service.AuthenticationService;
 import cinema.service.ShoppingCartService;
 import cinema.util.HashUtil;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Inject
-    UserDao userDao;
-    @Inject
-    ShoppingCartService shoppingCartService;
+    final UserDao userDao;
+    final ShoppingCartService shoppingCartService;
+
+    public AuthenticationServiceImpl(UserDao userDao, ShoppingCartService shoppingCartService) {
+        this.userDao = userDao;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
