@@ -4,7 +4,6 @@ import cinema.dao.MovieDao;
 import cinema.model.Movie;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MovieDaoImpl implements MovieDao {
-    private static final Logger LOGGER = Logger.getLogger(MovieDaoImpl.class);
     final SessionFactory sessionFactory;
 
     public MovieDaoImpl(SessionFactory sessionFactory) {
@@ -33,6 +31,15 @@ public class MovieDaoImpl implements MovieDao {
                 transaction.rollback();
             }
             throw new RuntimeException("Can't insert Movie entity", e);
+        }
+    }
+
+    @Override
+    public Movie findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Movie.class,id);
+        } catch (Exception e) {
+            throw new RuntimeException("Can't find Movie by id -" + id, e);
         }
     }
 

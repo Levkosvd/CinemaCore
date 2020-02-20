@@ -39,6 +39,15 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public Order findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Order.class,id);
+        } catch (Exception e) {
+            throw new RuntimeException("Can't find Order by id -" + id, e);
+        }
+    }
+
+    @Override
     public List<Order> getOrderHistory(User user) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();

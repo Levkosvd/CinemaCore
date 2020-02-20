@@ -39,6 +39,15 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     }
 
     @Override
+    public ShoppingCart findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(ShoppingCart.class,id);
+        } catch (Exception e) {
+            throw new RuntimeException("Can't find ShoppingCart by id -" + id, e);
+        }
+    }
+
+    @Override
     public ShoppingCart getByUser(User user) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();

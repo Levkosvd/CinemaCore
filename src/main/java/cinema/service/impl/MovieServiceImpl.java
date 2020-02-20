@@ -20,6 +20,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Movie findById(Long id) {
+        return movieDao.findById(id);
+    }
+
+    @Override
     public List<Movie> getAll() {
         return movieDao.getAll();
     }

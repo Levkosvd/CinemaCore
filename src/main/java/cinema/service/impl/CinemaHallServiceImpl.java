@@ -4,7 +4,6 @@ import cinema.dao.CinemaHallDao;
 import cinema.model.CinemaHall;
 import cinema.service.CinemaHallService;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,5 +22,10 @@ public class CinemaHallServiceImpl implements CinemaHallService {
     @Override
     public List<CinemaHall> getAll() {
         return cinemaHallDao.getAll();
+    }
+
+    @Override
+    public CinemaHall findById(Long id) {
+        return cinemaHallDao.findById(id);
     }
 }
