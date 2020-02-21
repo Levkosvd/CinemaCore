@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
-    final OrderService orderService;
-    final UserService userService;
+    private final OrderService orderService;
+    private final UserService userService;
 
     public OrderController(OrderService orderService,UserService userService) {
         this.orderService = orderService;
@@ -23,19 +23,21 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/complete", method = RequestMethod.POST)
-    public void completeOrder(@RequestParam(name = "userId") Long id) {
+    public String completeOrder(@RequestParam(name = "userId") Long id) {
         orderService.completeOrder(userService.findById(id));
+        return "Your order is completed!";
+
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<OrderRequestDto> getAllUserOrders(@RequestParam(name = "userId")Long userId) {
         return orderService.getOrderHistory(userService.findById(userId))
                 .stream()
-                .map(OrderController::getOrderDtoFromEntity)
+                .map(this::getOrderDtoFromEntity)
                 .collect(Collectors.toList());
     }
 
-    private static OrderRequestDto getOrderDtoFromEntity(Order order) {
+    private  OrderRequestDto getOrderDtoFromEntity(Order order) {
         OrderRequestDto orderDto = new OrderRequestDto();
         orderDto.setId(order.getId());
         orderDto.setTickets(order.getTickets());

@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    final UserService userService;
-    final AuthenticationService authenticationService;
+    private final UserService userService;
 
-    public UserController(UserService userService, AuthenticationService authenticationService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.authenticationService = authenticationService;
     }
 
     @RequestMapping(value = "/byemail",method = RequestMethod.GET)
@@ -25,7 +23,7 @@ public class UserController {
         return getUserDtoFromEntity(userService.findByEmail(email));
     }
 
-    private static UserRequestDto getUserDtoFromEntity(User user) {
+    private UserRequestDto getUserDtoFromEntity(User user) {
         UserRequestDto userDto = new UserRequestDto();
         userDto.setEmail(user.getEmail());
         userDto.setUserId(user.getId());

@@ -14,30 +14,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/cinemahalls")
 public class CinemaHallController {
-    final CinemaHallService cinemaHallService;
+    private final CinemaHallService cinemaHallService;
 
     public CinemaHallController(CinemaHallService cinemaHallService) {
         this.cinemaHallService = cinemaHallService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addCinemaHall(@RequestBody CinemaHallResponseDto responseDto) {
+    public String addCinemaHall(@RequestBody CinemaHallResponseDto responseDto) {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setDescription(responseDto.getDescription());
         cinemaHall.setCapacity(responseDto.getCapacity());
         cinemaHallService.add(cinemaHall);
+        return "Successful add of CinemaHall!";
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<CinemaHallRequestDto> getAllCinemaHalls() {
         return cinemaHallService.getAll()
                 .stream()
-                .map(CinemaHallController::getCinemaHallDtoFromEntity)
+                .map(this::getCinemaHallDtoFromEntity)
                 .collect(Collectors.toList());
 
     }
 
-    private static CinemaHallRequestDto getCinemaHallDtoFromEntity(CinemaHall cinemaHall) {
+    private  CinemaHallRequestDto getCinemaHallDtoFromEntity(CinemaHall cinemaHall) {
         CinemaHallRequestDto dtoMovie = new CinemaHallRequestDto();
         dtoMovie.setDescription(cinemaHall.getDescription());
         dtoMovie.setCapacity(cinemaHall.getCapacity());

@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/moviesessions")
 public class MovieSessionController {
-    final MovieSessionService movieSessionService;
-    final CinemaHallService cinemaHallService;
-    final MovieService movieService;
+    private final MovieSessionService movieSessionService;
+    private final CinemaHallService cinemaHallService;
+    private final MovieService movieService;
 
     public MovieSessionController(MovieSessionService movieSessionService,
                                   CinemaHallService cinemaHallService,
@@ -31,8 +31,9 @@ public class MovieSessionController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addMovieSession(@RequestBody MovieSessionRequestDto requestDto) {
+    public String addMovieSession(@RequestBody MovieSessionRequestDto requestDto) {
         movieSessionService.add(getMovieSessionFromDto(requestDto));
+        return "Successful add of MovieSession!";
     }
 
     @RequestMapping(value = "/available",method = RequestMethod.GET)
@@ -42,7 +43,7 @@ public class MovieSessionController {
         return movieSessionService.findAvailableSessions(id,
                 LocalDate.parse(date, DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .stream()
-                .map(MovieSessionController::getMovieSessionDtoFromEntity)
+                .map(this::getMovieSessionDtoFromEntity)
                 .collect(Collectors.toList());
     }
 
@@ -54,7 +55,7 @@ public class MovieSessionController {
         return movieSession;
     }
 
-    private static MovieSessionRequestDto getMovieSessionDtoFromEntity(MovieSession movieSession) {
+    private  MovieSessionRequestDto getMovieSessionDtoFromEntity(MovieSession movieSession) {
         MovieSessionRequestDto dtoMovieSession = new MovieSessionRequestDto();
         dtoMovieSession.setCinemaHallId(movieSession.getCinemaHall().getId());
         dtoMovieSession.setShowTime(movieSession.getShowTime());

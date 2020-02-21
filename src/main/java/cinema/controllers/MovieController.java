@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
-    final MovieService movieService;
+    private final MovieService movieService;
 
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addMovie(@RequestBody MovieResponseDto responseDto) {
+    public String addMovie(@RequestBody MovieResponseDto responseDto) {
         Movie movie = new Movie();
         movie.setDescription(responseDto.getDescription());
         movie.setTitle(responseDto.getTitle());
         movieService.add(movie);
+        return "Successful add of Movie!";
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<MovieRequestDto> getAllMovies() {
         return movieService.getAll()
                 .stream()
-                .map(MovieController::getMovieDtoFromEntity)
+                .map(this::getMovieDtoFromEntity)
                 .collect(Collectors.toList());
-
     }
 
-    private static MovieRequestDto getMovieDtoFromEntity(Movie movie) {
+    private MovieRequestDto getMovieDtoFromEntity(Movie movie) {
         MovieRequestDto dtoMovie = new MovieRequestDto();
         dtoMovie.setDescription(movie.getDescription());
         dtoMovie.setTitle(movie.getTitle());

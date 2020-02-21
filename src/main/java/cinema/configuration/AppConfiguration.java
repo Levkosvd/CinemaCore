@@ -51,7 +51,6 @@ public class AppConfiguration {
         sessionFactory.setAnnotatedClasses(Movie.class,User.class,
                 CinemaHall.class, MovieSession.class, Ticket.class,
                 Order.class, ShoppingCart.class);
-        /*sessionFactory.setPackagesToScan("cinema.model");*/
         return sessionFactory;
 
     }
