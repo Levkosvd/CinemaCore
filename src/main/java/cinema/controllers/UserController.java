@@ -2,7 +2,6 @@ package cinema.controllers;
 
 import cinema.model.User;
 import cinema.model.dto.request.UserRequestDto;
-import cinema.service.AuthenticationService;
 import cinema.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,6 +1,5 @@
 package cinema.model.dto.request;
 
-import cinema.model.Ticket;
 import java.util.List;
 
 public class ShoppingCartRequestDto {

@@ -1,10 +1,6 @@
 package cinema.model.dto.request;
 
-import cinema.model.CinemaHall;
-import cinema.model.Movie;
-import cinema.model.User;
 import java.time.LocalDateTime;
-import javax.persistence.ManyToOne;
 
 public class TicketRequestDto {
     private Long id;

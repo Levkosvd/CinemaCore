@@ -61,6 +61,7 @@ public class ShoppingCartController {
         shopCartDto.setId(shoppingCart.getId());
         return shopCartDto;
     }
+
     private TicketRequestDto getThicketDtoFromTicket(Ticket entity) {
         TicketRequestDto ticket = new TicketRequestDto();
         ticket.setShowTime(entity.getShowTime());
