@@ -31,4 +31,13 @@ public class TicketDaoImpl implements TicketDao {
             throw new RuntimeException("Can't insert User entity", e);
         }
     }
+
+    @Override
+    public Ticket findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Ticket.class,id);
+        } catch (Exception e) {
+            throw new RuntimeException("Can't find Ticket by id -" + id, e);
+        }
+    }
 }
