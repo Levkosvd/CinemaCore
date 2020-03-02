@@ -35,10 +35,9 @@ public class CinemaHallController {
                 .stream()
                 .map(this::getCinemaHallDtoFromEntity)
                 .collect(Collectors.toList());
-
     }
 
-    private  CinemaHallRequestDto getCinemaHallDtoFromEntity(CinemaHall cinemaHall) {
+    private CinemaHallRequestDto getCinemaHallDtoFromEntity(CinemaHall cinemaHall) {
         CinemaHallRequestDto dtoMovie = new CinemaHallRequestDto();
         dtoMovie.setDescription(cinemaHall.getDescription());
         dtoMovie.setCapacity(cinemaHall.getCapacity());

@@ -20,9 +20,9 @@ public class InitController implements
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
-
-
-    public InitController(UserService userService, RoleService roleRepository,  PasswordEncoder passwordEncoder) {
+    public InitController(UserService userService,
+                          RoleService roleRepository,
+                          PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -31,8 +31,9 @@ public class InitController implements
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        if (alreadySetup)
+        if (alreadySetup) {
             return;
+        }
         Role adminRole = new Role();
         adminRole.setName("ADMIN");
         Role userRole = new Role();
@@ -49,5 +50,4 @@ public class InitController implements
 
         alreadySetup = true;
     }
-
 }

@@ -1,9 +1,7 @@
 package cinema.dao.hibernateimpl;
 
 import cinema.dao.RoleDao;
-import cinema.model.Order;
 import cinema.model.Role;
-import cinema.model.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -19,6 +17,7 @@ public class RoleDaoImpl implements RoleDao {
     public RoleDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
+
     @Override
     public Role add(Role entity) {
         Transaction transaction = null;
