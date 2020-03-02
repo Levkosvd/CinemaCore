@@ -35,7 +35,6 @@ public class CinemaHallController {
                 .stream()
                 .map(this::getCinemaHallDtoFromEntity)
                 .collect(Collectors.toList());
-
     }
 
     private CinemaHallRequestDto getCinemaHallDtoFromEntity(CinemaHall cinemaHall) {

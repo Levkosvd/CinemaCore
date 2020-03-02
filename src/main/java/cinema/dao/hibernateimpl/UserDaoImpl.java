@@ -5,6 +5,7 @@ import cinema.model.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -47,18 +48,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByEmail(String email) {
         try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<User> userCriteriaQuery =
-                    criteriaBuilder.createQuery(User.class);
-            Root<User> userRoot =
-                    userCriteriaQuery.from(User.class);
-            userCriteriaQuery
-                    .select(userRoot)
-                    .where(criteriaBuilder.and(criteriaBuilder
-                            .equal(userRoot.get("email"), email)));
-            return session.createQuery(userCriteriaQuery).uniqueResult();
+            return (User) session.createQuery(String.format(
+                    "select user from User user " +
+                            "join fetch user.roles " +
+                            "where user.email ='%s'", email)).uniqueResult();
         } catch (Exception e) {
-            throw new RuntimeException("Can't find User by email -" + email, e);
+            throw new RuntimeException("Can't find User by email - " + email, e);
         }
     }
 }
