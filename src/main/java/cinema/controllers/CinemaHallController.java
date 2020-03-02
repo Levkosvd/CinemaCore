@@ -38,7 +38,7 @@ public class CinemaHallController {
 
     }
 
-    private CinemaHallRequestDto getCinemaHallDtoFromEntity(CinemaHall cinemaHall) {
+    private  CinemaHallRequestDto getCinemaHallDtoFromEntity(CinemaHall cinemaHall) {
         CinemaHallRequestDto dtoMovie = new CinemaHallRequestDto();
         dtoMovie.setDescription(cinemaHall.getDescription());
         dtoMovie.setCapacity(cinemaHall.getCapacity());

@@ -4,6 +4,7 @@ import cinema.model.CinemaHall;
 import cinema.model.Movie;
 import cinema.model.MovieSession;
 import cinema.model.Order;
+import cinema.model.Role;
 import cinema.model.ShoppingCart;
 import cinema.model.Ticket;
 import cinema.model.User;
@@ -22,7 +23,8 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 @PropertySource("classpath:db.properties")
 @ComponentScan(basePackages = {
         "cinema.dao.hibernateimpl",
-        "cinema.service.impl"
+        "cinema.service.impl",
+        "cinema.security"
 })
 public class AppConfiguration {
 
@@ -50,9 +52,8 @@ public class AppConfiguration {
         sessionFactory.setHibernateProperties(properties);
         sessionFactory.setAnnotatedClasses(Movie.class,User.class,
                 CinemaHall.class, MovieSession.class, Ticket.class,
-                Order.class, ShoppingCart.class);
+                Order.class, ShoppingCart.class, Role.class);
         return sessionFactory;
-
     }
 
 }
